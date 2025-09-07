@@ -1,0 +1,267 @@
+:root {
+  --panel-bg: rgba(255, 255, 255, 0.82);
+  --panel-border: rgba(0, 0, 0, 0.08);
+  --text: #111;
+  --muted: #6c6c70; /* iOS gray */
+  --primary: #0A84FF; /* iOS blue */
+  --primary-contrast: #fff;
+  --shadow: 0 14px 34px rgba(0,0,0,0.16);
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, Segoe UI, Roboto, Helvetica, Arial;
+  color: var(--text);
+  background: #000; /* 实时预览用 */
+  transition: background-color .18s ease;
+}
+
+#app {
+  position: fixed;
+  right: calc(20px + env(safe-area-inset-right));
+  top: calc(20px + env(safe-area-inset-top));
+  width: min(880px, calc(100% - 40px));
+  background: var(--panel-bg);
+  backdrop-filter: saturate(120%) blur(16px);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  z-index: 10;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+#app.is-hidden {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+.panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.panel__header h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.header__actions button {
+  margin-left: 8px;
+}
+
+.panel__section {
+  padding: 14px 16px 6px 16px;
+}
+
+.panel__section h2 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+	.controls {
+	  display: flex;
+	  gap: 10px;
+	  flex-wrap: wrap;
+	  align-items: flex-end;
+	}
+
+.controls--color {
+  align-items: center;
+}
+
+.control {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 6px;
+}
+
+.control--grow { flex: 1 1 280px; }
+
+label span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+input[type="text"], input[type="number"], select, input[readonly] {
+  height: 44px; /* iOS touch target */
+  padding: 6px 10px;
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  background: #fff;
+  outline: none;
+  font-size: 14px;
+}
+
+input[type="color"] {
+  appearance: none;
+  width: 48px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  background: #fff;
+}
+
+button {
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  background: #fff;
+  cursor: pointer;
+  transition: transform .06s ease, background-color .12s ease, box-shadow .12s ease, color .12s ease;
+}
+
+.btn--primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-contrast);
+  box-shadow: 0 2px 6px rgba(10,132,255,.35);
+}
+
+button:active { transform: scale(0.98); }
+
+.readouts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.readout {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.readout span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+#toast {
+  position: fixed;
+  left: calc(50% + env(safe-area-inset-left)/2 - env(safe-area-inset-right)/2);
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.85);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease;
+  z-index: 20;
+}
+
+#toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+@media (max-width: 640px) {
+  #app {
+    left: calc(10px + env(safe-area-inset-left));
+    right: calc(10px + env(safe-area-inset-right));
+    width: auto;
+  }
+  .readouts { grid-template-columns: 1fr; }
+}
+
+.fab {
+  position: fixed;
+  left: calc(20px + env(safe-area-inset-left));
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  height: 44px;
+  padding: 0 14px;
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.16); /* 高透明 */
+  color: #111;
+  backdrop-filter: saturate(120%) blur(20px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  z-index: 15;
+}
+
+/* 根据背景自适应的两种透明方案 */
+.fab.fab--light { /* 背景较暗时，浅色磨砂 */
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(255,255,255,0.45);
+  color: #111;
+}
+.fab.fab--dark { /* 背景较亮时，深色磨砂 */
+  background: rgba(0,0,0,0.25);
+  border-color: rgba(255,255,255,0.25);
+  color: #fff;
+}
+
+.segmented {
+  display: inline-flex;
+  background: #F2F2F7; /* iOS grouped background */
+  border-radius: 12px;
+  padding: 2px;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.segmented > button {
+  height: 36px;
+  padding: 0 14px;
+  border: 0;
+  background: transparent;
+  color: #111;
+  border-radius: 10px;
+}
+.segmented > button[aria-selected="true"] {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 1px 3px rgba(10,132,255,.3);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+  border: 0; padding: 0; margin: -1px;
+}
+.icon-btn {
+  width: 44px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Recent chips */
+.chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+.chip { height: 28px; line-height: 28px; padding: 0 10px; border-radius: 999px; border:1px solid var(--panel-border); background:#fff; font-size:12px; cursor:pointer; }
+.chip:active { transform: scale(.98); }
+
+/* Ensure header action buttons align and group correctly */
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Normalize range control height for better alignment in controls */
+input[type="range"] {
+  height: 44px;
+  margin: 0;
+  accent-color: var(--primary);
+}

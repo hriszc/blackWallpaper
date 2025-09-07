@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Black Wallpaper Generator · Solid Color | 黑色/纯色壁纸生成器</title>
+    <meta name="description" content="Create black wallpapers and solid color wallpapers in seconds (4K, 1080p, iPhone, Android). HEX/RGB/HSL input, PNG/JPEG export, one‑click color copy. 秒级生成黑色壁纸与纯色壁纸（4K、1080p、iPhone、Android），支持 HEX/RGB/HSL 与 PNG/JPEG 导出。" />
+    <meta name="robots" content="index,follow" />
+    <meta property="og:title" content="Black Wallpaper Generator · Solid Color | 黑色/纯色壁纸生成器" />
+    <meta property="og:description" content="Create black wallpapers (4K, iPhone, Android) and solid color backgrounds. HEX/RGB/HSL, presets, PNG/JPEG export." />
+    <meta property="og:type" content="website" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="panel__header">
+        <h1 data-i18n="appTitle">纯色壁纸生成器</h1>
+        <div class="header__actions">
+          <button id="langToggleBtn" title="Language / 语言">EN</button>
+          <button id="fullscreenBtn" data-i18n="btnFullscreen" title="全屏预览">全屏预览</button>
+          <button id="hideUiBtn" class="icon-btn" aria-label="隐藏面板" title="隐藏面板">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M3 3l18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M10.58 10.58a3 3 0 104.24 4.24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M9.88 5.09A10.94 10.94 0 0112 5c5 0 9.27 3.11 11 7.5-.47 1.19-1.13 2.28-1.95 3.23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M6.61 6.61C4.05 8.07 2.09 10.51 1 12.5c1.73 4.39 6 7.5 11 7.5 1.47 0 2.88-.25 4.18-.71" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="visually-hidden" id="hideUiBtnLabel" data-i18n="btnHidePanel">隐藏面板</span>
+          </button>
+        </div>
+      </header>
+
+      <section class="panel__section">
+        <h2 data-i18n="sectionColor">颜色生成</h2>
+        <div class="controls controls--color">
+          <label class="control">
+            <span data-i18n="pickerLabel">拾色器</span>
+            <input type="color" id="colorPicker" value="#000000" />
+          </label>
+          <label class="control control--grow">
+            <span data-i18n="colorCodeLabel">颜色代码（HEX/RGB/HSL）</span>
+            <input type="text" id="colorInput" data-i18n-placeholder="colorPlaceholder" placeholder="#000000 | rgb(0,0,0) | hsl(0,0%,0%)" />
+          </label>
+          <button id="randomBtn" class="btn--primary" data-i18n="btnRandom">随机颜色</button>
+        </div>
+
+        <div class="readouts">
+          <div class="readout">
+            <span>HEX</span>
+            <input id="hexRead" readonly />
+            <button data-copy="#hexRead" data-i18n="btnCopy">复制</button>
+          </div>
+          <div class="readout">
+            <span>RGB</span>
+            <input id="rgbRead" readonly />
+            <button data-copy="#rgbRead" data-i18n="btnCopy">复制</button>
+          </div>
+          <div class="readout">
+            <span>HSL</span>
+            <input id="hslRead" readonly />
+            <button data-copy="#hslRead" data-i18n="btnCopy">复制</button>
+          </div>
+        </div>
+        <div id="recentColors" class="chips" aria-label="Recent colors" hidden></div>
+      </section>
+
+      <section class="panel__section">
+        <h2 data-i18n="sectionConfig">壁纸配置</h2>
+        <div class="controls">
+          <label class="control">
+            <span data-i18n="presetLabel">预设尺寸</span>
+            <select id="presetSelect"></select>
+          </label>
+          <label class="control">
+            <span data-i18n="widthLabel">宽度 (px)</span>
+            <input type="number" id="widthInput" min="1" step="1" />
+          </label>
+          <label class="control">
+            <span data-i18n="heightLabel">高度 (px)</span>
+            <input type="number" id="heightInput" min="1" step="1" />
+          </label>
+          <button id="useScreenBtn" data-i18n="btnUseScreen" title="使用当前屏幕分辨率">当前屏幕</button>
+        </div>
+        <div id="recentSizes" class="chips" aria-label="Recent sizes" hidden></div>
+      </section>
+
+      <section class="panel__section">
+        <h2 data-i18n="sectionExport">导出</h2>
+        <div class="controls">
+          <label class="control">
+            <span data-i18n="formatLabel">格式</span>
+            <div id="formatSegment" class="segmented" role="tablist" aria-label="Format">
+              <button type="button" data-format="png" aria-selected="true">PNG</button>
+              <button type="button" data-format="jpeg" aria-selected="false">JPEG</button>
+            </div>
+            <select id="formatSelect" class="visually-hidden" aria-hidden="true" tabindex="-1">
+              <option value="png">PNG</option>
+              <option value="jpeg">JPEG</option>
+            </select>
+          </label>
+          <label class="control" id="jpegQualityWrap" hidden>
+            <span data-i18n="jpegQualityLabel">JPEG 质量</span>
+            <input type="range" id="jpegQuality" min="0.5" max="1" step="0.01" value="0.92" />
+          </label>
+          <button id="downloadBtn" class="btn--primary" data-i18n="btnDownload">下载壁纸</button>
+        </div>
+        <div class="controls controls--share">
+          <button id="shareTwitterBtn" data-i18n="shareTwitter">Share on Twitter</button>
+          <button id="copyShareBtn" data-i18n="shareCopy">Copy blurb</button>
+        </div>
+      </section>
+    </div>
+
+    <button id="showUiFab" class="fab" hidden data-i18n="btnShowPanel" title="显示面板">显示面板</button>
+    <div id="toast" role="status" aria-live="polite"></div>
+
+    <script src="app.js"></script>
+  </body>
+  </html>
+

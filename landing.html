@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Black Wallpaper Generator · Solid Color | 黑色/纯色壁纸生成器</title>
+    <meta name="description" content="Create black wallpapers and solid color wallpapers fast (4K, 1080p, iPhone, Android). HEX/RGB/HSL, PNG/JPEG export. 生成黑色壁纸与纯色壁纸（4K、1080p、iPhone、Android），支持 HEX/RGB/HSL 与 PNG/JPEG 导出。" />
+    <meta name="keywords" content="black wallpaper, 4k black wallpaper, iphone black wallpaper, android black wallpaper, desktop black background, minimalist black wallpaper, amoled black, true black wallpaper, solid black wallpaper, black background image, wallpaper generator, solid color wallpaper, color background, 纯黑 壁纸, 黑色 壁纸, 4K 黑色 壁纸, iPhone 黑色 壁纸, Android 黑色 壁纸, 桌面 黑色 壁纸, AMOLED 省电 壁纸, 纯色 壁纸, 壁纸 生成器" />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://wallpaperonline.net/" />
+    <link rel="alternate" href="https://wallpaperonline.net/" hreflang="zh-CN" />
+    <link rel="alternate" href="https://wallpaperonline.net/en/" hreflang="en" />
+    <link rel="alternate" href="https://wallpaperonline.net/" hreflang="x-default" />
+    <meta property="og:title" content="Solid Color Wallpaper Generator | 纯色壁纸生成器" />
+    <meta property="og:description" content="Create black wallpapers (4K, iPhone, Android) and solid color backgrounds. HEX/RGB/HSL, presets, PNG/JPEG export." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="./landing.html" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="zh_CN" />
+    <meta name="twitter:card" content="summary" />
+    <style>
+      :root { --text:#111; --muted:#6c6c70; --link:#0A84FF; }
+      html, body { height: 100%; }
+      body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, Segoe UI, Roboto, Helvetica, Arial; color:var(--text); background:#fafafa; }
+      .container { max-width: 1080px; margin: 0 auto; padding: 28px 20px 48px; }
+      header { display:flex; align-items:flex-start; justify-content:space-between; gap: 16px; }
+      header h1 { margin: 0 0 8px 0; font-size: 28px; font-weight: 800; }
+      header p { margin: 0; color: var(--muted); }
+      .header-actions { display:flex; align-items:center; gap: 8px; }
+      .lang-toggle { height: 36px; min-width: 44px; padding: 0 12px; border-radius: 10px; border:1px solid rgba(0,0,0,.08); background:#fff; cursor:pointer; }
+      .lang-toggle:active { transform: scale(.98); }
+      .grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 22px; }
+      .card { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius: 16px; padding: 18px; box-shadow: 0 8px 28px rgba(0,0,0,.08); }
+      .features { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px 18px; }
+      .features li { line-height: 1.6; }
+      .embed { background: #000; border-radius: 16px; overflow: hidden; border:1px solid rgba(0,0,0,.1); }
+      .embed iframe { display:block; width:100%; height: min(78vh, 820px); border:0; }
+      .embed-actions { display:flex; justify-content:flex-end; gap: 12px; margin-top: 10px; }
+      .embed-actions a { color: var(--link); text-decoration: none; font-weight: 600; }
+      .faq details { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius: 12px; padding: 12px 14px; }
+      .faq details + details { margin-top: 10px; }
+      footer { margin-top: 28px; color: var(--muted); font-size: 13px; }
+      @media (max-width: 720px) { .features { grid-template-columns: 1fr; } }
+      .actions { display:flex; gap:10px; flex-wrap:wrap; }
+      .btn { height: 36px; padding: 0 12px; border-radius: 10px; border:1px solid rgba(0,0,0,.08); background:#fff; cursor:pointer; }
+      .btn:active { transform: scale(.98); }
+      .btn-primary { background: #0A84FF; color: #fff; border-color: #0A84FF; }
+
+      /* Micro-interactions and motion (subtle) */
+      .card { transition: transform .25s ease, box-shadow .25s ease; will-change: transform; }
+      .card:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(0,0,0,.12); }
+      .btn { transition: background-color .16s ease, color .16s ease, box-shadow .16s ease, transform .16s ease; }
+      .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,.10); }
+      .btn:focus-visible { outline: 3px solid rgba(10,132,255,.35); outline-offset: 2px; }
+      .lang-toggle { transition: background-color .16s ease, box-shadow .16s ease, transform .16s ease; }
+      .lang-toggle:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+      .embed-actions a { position: relative; }
+      .embed-actions a::after { content:''; position:absolute; left:0; bottom:-2px; width:0; height:2px; background: var(--link); transition: width .2s ease; }
+      .embed-actions a:hover::after { width:100%; }
+      @keyframes fadeUp { from { opacity: 0; transform: translateY(8px);} to { opacity:1; transform: none; } }
+      .grid > .card { opacity:0; animation: fadeUp .5s ease forwards; }
+      .grid > .card:nth-child(1) { animation-delay: .02s; }
+      .grid > .card:nth-child(2) { animation-delay: .06s; }
+      .grid > .card:nth-child(3) { animation-delay: .10s; }
+      .grid > .card:nth-child(4) { animation-delay: .14s; }
+      .grid > .card:nth-child(5) { animation-delay: .18s; }
+      @media (prefers-reduced-motion: reduce) {
+        * { animation: none !important; transition: none !important; }
+      }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Solid Color Wallpaper Generator",
+      "alternateName": "纯色壁纸生成器",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "description": "Create, preview and download solid color wallpapers. Supports HEX/RGB/HSL, common presets and PNG/JPEG export.",
+      "keywords": "wallpaper generator, solid color wallpaper, hex rgb hsl, png, jpeg"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Will huge exports freeze the browser?",
+          "acceptedAnswer": {"@type": "Answer", "text": "A soft limit (~100MP) helps avoid memory issues. Lower the resolution if needed."}
+        },
+        {
+          "@type": "Question",
+          "name": "Offline support?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Yes. Everything runs locally in the browser. You can also add it as a PWA or bookmark the page."}
+        },
+        {
+          "@type": "Question",
+          "name": "Why choose black wallpapers?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Black wallpapers (#000000) look clean and can reduce glare. On OLED/AMOLED screens, true black pixels are off, which can help save battery and achieve deeper contrast."}
+        }
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div>
+          <h1><span data-i18n="title">纯色壁纸生成器</span> <span style="font-weight:600; color:var(--muted); font-size:20px;" data-i18n="titleEn">Solid Color Wallpaper</span></h1>
+          <p data-i18n="subtitle">高性能、纯前端、无依赖，支持 HEX/RGB/HSL、常用分辨率预设、PNG/JPEG 导出与一键复制。</p>
+        </div>
+        <div class="header-actions">
+          <button id="landingLangToggle" class="lang-toggle" title="Language / 语言">EN</button>
+        </div>
+      </header>
+
+      <section class="grid">
+        <div class="card">
+          <h2 data-i18n="tryOnline">Try Online</h2>
+          <div class="embed">
+            <iframe src="app.html" id="appFrame" title="纯色壁纸生成器在线体验" loading="lazy" referrerpolicy="no-referrer"></iframe>
+          </div>
+          <div class="embed-actions">
+            <a href="app.html" target="_blank" rel="noopener" id="openFull" data-i18n="openFull">Open Full App in New Window</a>
+        </div>
+        </div>
+
+        <div class="card">
+          <h2 data-i18n="features">Features</h2>
+          <ul class="features">
+            <li data-i18n="feat1">拾色器 + 代码输入（HEX/RGB/HSL）</li>
+            <li data-i18n="feat2">一键随机颜色</li>
+            <li data-i18n="feat3">常用分辨率预设与自定义尺寸</li>
+            <li data-i18n="feat4">PNG / JPEG 导出（可调质量）</li>
+            <li data-i18n="feat5">实时全屏预览</li>
+            <li data-i18n="feat6">一键复制 HEX/RGB/HSL</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2><span data-i18n="blackTitle">Black Wallpaper</span></h2>
+          <p data-i18n="blackP1">Generate true black wallpapers (#000000) for AMOLED/OLED and LCD displays. Popular queries include 4K black wallpaper, iPhone black wallpaper, Android black wallpaper, desktop black background, and minimalist black wallpaper.</p>
+          <p data-i18n="blackP2">生成纯黑壁纸（#000000），适配 AMOLED/OLED 省电与护眼，也适合桌面极简风。常见需求：4K 黑色壁纸、iPhone 黑色壁纸、Android 黑色壁纸、桌面纯黑背景、极简黑色壁纸。</p>
+          <ul class="features">
+            <li data-i18n="blackL1">4K black wallpaper：3840×2160；1440p：2560×1440；1080p：1920×1080</li>
+            <li data-i18n="blackL2">iPhone black wallpaper：1179×2556（15 Pro）等主流尺寸</li>
+            <li data-i18n="blackL3">Android black wallpaper：1440×3120 等高分辨率</li>
+            <li data-i18n="blackL4">Ultrawide black wallpaper：3440×1440</li>
+          </ul>
+        </div>
+
+        <div class="card faq">
+          <h2 data-i18n="faq">FAQ</h2>
+          <details>
+            <summary data-i18n="q1">Will huge exports freeze the browser?</summary>
+            <p data-i18n="a1">A soft limit (~100MP) helps avoid memory issues. Lower the resolution if needed.</p>
+          </details>
+          <details>
+            <summary data-i18n="q2">Offline support?</summary>
+            <p data-i18n="a2">Yes. Everything runs locally in the browser. For full offline, add as PWA or bookmark.</p>
+          </details>
+          <details>
+            <summary data-i18n="qBlack">为什么选择黑色壁纸？</summary>
+            <p data-i18n="aBlack">黑色壁纸简约克制、降低眩光；在 OLED/AMOLED 屏幕上，纯黑像素关闭，有助于省电并获得更深邃的对比。</p>
+          </details>
+        </div>
+
+        <div class="card">
+          <h2 data-i18n="share">Share</h2>
+          <div class="actions">
+            <a id="shareTwitter" class="btn btn-primary" target="_blank" rel="noopener" data-i18n="shareTwitter">Share on Twitter</a>
+            <button id="copyShare" class="btn" data-i18n="shareCopy">Copy blurb</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 data-i18n="why">Why Choose This Generator</h2>
+          <p data-i18n="whyP1">Zero-dependency, instant load, and pixel-accurate exports. Perfect for designers, developers, and minimalists who need crisp, distraction-free wallpapers.</p>
+          <p data-i18n="whyP2">Presets for popular displays (1080p, 1440p, 4K, ultrawide, iPhone/Android) plus custom sizes ensure you get the exact resolution your device needs.</p>
+        </div>
+
+        <div class="card">
+          <h2 data-i18n="how">How to Use</h2>
+          <ol>
+            <li data-i18n="how1">Pick a color or enter HEX/RGB/HSL.</li>
+            <li data-i18n="how2">Choose a preset or set a custom size.</li>
+            <li data-i18n="how3">Export as PNG or JPEG (adjust quality if needed).</li>
+            <li data-i18n="how4">Copy color codes with one click.</li>
+          </ol>
+        </div>
+
+        <div class="card">
+          <h2 data-i18n="usecases">Use Cases</h2>
+          <ul>
+            <li data-i18n="u1">Minimalist desktop or mobile wallpapers</li>
+            <li data-i18n="u2">Brand color backgrounds for presentations</li>
+            <li data-i18n="u3">Mood boards and design mockups</li>
+            <li data-i18n="u4">Development placeholders and screenshots</li>
+          </ul>
+        </div>
+      </section>
+
+      <footer>
+        <p id="footnote" data-i18n="footnote">© 2025 Solid Color Wallpaper · SEO-friendly landing page embedding the full app.</p>
+      </footer>
+    </div>
+    <script>
+      (function(){
+        const L = {
+          'zh-CN': {
+            title:'纯色壁纸生成器', titleEn:'Solid Color Wallpaper', subtitle:'高性能、纯前端、无依赖，支持 HEX/RGB/HSL、常用分辨率预设、PNG/JPEG 导出与一键复制。',
+            features:'功能特点', feat1:'拾色器 + 代码输入（HEX/RGB/HSL）', feat2:'一键随机颜色', feat3:'常用分辨率预设与自定义尺寸', feat4:'PNG / JPEG 导出（可调质量）', feat5:'实时全屏预览', feat6:'一键复制 HEX/RGB/HSL',
+            tryOnline:'在线体验', openFull:'在新窗口打开完整应用', faq:'常见问题', q1:'导出图片很大时会卡顿吗？', a1:'应用对超大尺寸做了软限制（约 100MP），避免因内存不足导致浏览器崩溃。建议按需降低分辨率。', q2:'是否支持离线使用？', a2:'是，所有逻辑都在本地浏览器运行；如需完整离线支持，可将页面保存为书签或添加 PWA。',
+            why:'为什么选择本工具', whyP1:'零依赖、秒开、像素级导出。适合追求简约美学的设计师、开发者和普通用户。', whyP2:'预设覆盖常见显示设备（1080p、2K、4K、超宽屏、iPhone/Android），同时支持任意自定义分辨率。',
+            how:'如何使用', how1:'选择颜色或输入 HEX/RGB/HSL。', how2:'选择预设或自定义尺寸。', how3:'导出 PNG 或 JPEG（可调质量）。', how4:'一键复制颜色代码。',
+            usecases:'应用场景', u1:'极简桌面或手机壁纸', u2:'品牌色演示背景', u3:'情绪板与设计稿', u4:'开发占位与截图',
+            footnote:'© 2025 纯色壁纸生成器 · 本页面为 SEO 友好落地页，内嵌应用不影响完整功能。',
+            frameTitle:'纯色壁纸生成器在线体验',
+            share:'分享', shareTwitter:'分享到 Twitter', shareCopy:'复制推荐文案',
+            shareText:'免费纯前端「纯色壁纸生成器」：秒级创建黑色壁纸与纯色壁纸，支持 HEX/RGB/HSL、1080p/4K/手机预设、PNG/JPEG 导出与一键复制颜色。',
+            blackTitle:'黑色壁纸',
+            blackP1:'快速生成纯黑壁纸（#000000），适配 AMOLED/OLED 省电与护眼，也适合桌面极简风。',
+            blackP2:'常见需求：4K 黑色壁纸、iPhone 黑色壁纸、Android 黑色壁纸、桌面纯黑背景、极简黑色壁纸。',
+            blackL1:'4K 黑色壁纸：3840×2160；1440p：2560×1440；1080p：1920×1080',
+            blackL2:'iPhone 黑色壁纸：1179×2556（15 Pro）等主流尺寸',
+            blackL3:'Android 黑色壁纸：1440×3120 等高分辨率',
+            blackL4:'超宽屏黑色壁纸：3440×1440',
+            qBlack:'为什么选择黑色壁纸？',
+            aBlack:'黑色壁纸简约克制、降低眩光；在 OLED/AMOLED 屏幕上，纯黑像素关闭，有助于省电并获得更深邃的对比。'
+          },
+          en: {
+            title:'Solid Color Wallpaper', titleEn:'Generator', subtitle:'High‑performance, client‑only tool with HEX/RGB/HSL input, popular size presets (1080p, 4K, iPhone, Android), PNG/JPEG export, and one‑click color copy.',
+            features:'Features', feat1:'Color picker + code input (HEX/RGB/HSL)', feat2:'One‑click random color', feat3:'Common presets and custom sizes', feat4:'PNG / JPEG export (quality control)', feat5:'Live fullscreen preview', feat6:'One‑click copy HEX/RGB/HSL',
+            tryOnline:'Try Online', openFull:'Open Full App in New Window', faq:'FAQ', q1:'Will huge exports freeze the browser?', a1:'A soft limit (~100MP) helps avoid memory issues. Lower the resolution if needed.', q2:'Offline support?', a2:'Yes. Everything runs locally. For full offline, add as PWA or bookmark.',
+            why:'Why Choose This Generator', whyP1:'Zero‑dependency, instant load, and pixel‑accurate exports. Perfect for designers, developers, and minimalists who need crisp, distraction‑free wallpapers.', whyP2:'Presets for popular displays (1080p, 1440p, 4K, ultrawide, iPhone/Android) plus custom sizes ensure you get the exact resolution your device needs.',
+            how:'How to Use', how1:'Pick a color or enter HEX/RGB/HSL.', how2:'Choose a preset or set a custom size.', how3:'Export as PNG or JPEG (adjust quality if needed).', how4:'Copy color codes with one click.',
+            usecases:'Use Cases', u1:'Minimalist desktop or mobile wallpapers', u2:'Brand color backgrounds for presentations', u3:'Mood boards and design mockups', u4:'Development placeholders and screenshots',
+            footnote:'© 2025 Solid Color Wallpaper · SEO‑friendly landing page embedding the full app.',
+            frameTitle:'Live demo of Solid Color Wallpaper Generator',
+            share:'Share', shareTwitter:'Share on Twitter', shareCopy:'Copy blurb',
+            shareText:'Solid Color Wallpaper Generator — create black wallpapers and solid color wallpapers in seconds. HEX/RGB/HSL, presets for 1080p/4K/iPhone/Android, PNG/JPEG export, and one‑click color copy.',
+            blackTitle:'Black Wallpaper',
+            blackP1:'Generate true black wallpapers (#000000) for AMOLED/OLED and LCD displays.',
+            blackP2:'Popular queries: 4K black wallpaper, iPhone black wallpaper, Android black wallpaper, desktop black background, minimalist black wallpaper.',
+            blackL1:'4K black wallpaper: 3840×2160; 1440p: 2560×1440; 1080p: 1920×1080',
+            blackL2:'iPhone black wallpaper: 1179×2556 (15 Pro) and other sizes',
+            blackL3:'Android black wallpaper: 1440×3120 high‑resolution',
+            blackL4:'Ultrawide black wallpaper: 3440×1440',
+            qBlack:'Why choose black wallpaper?',
+            aBlack:'Black wallpapers reduce glare and look clean. On OLED/AMOLED, true black pixels are off, helping save battery and achieving deeper contrast.'
+          }
+        };
+        const LS_KEY='bw_landing_lang';
+        const langInit = (localStorage.getItem(LS_KEY)) || 'en';
+        let lang = L[langInit]?langInit:'en';
+        function apply(){
+          const dict=L[lang];
+          document.querySelectorAll('[data-i18n]').forEach(el=>{
+            const k=el.getAttribute('data-i18n');
+            if(dict[k]) el.textContent=dict[k];
+          });
+          const btn=document.getElementById('landingLangToggle');
+          if(btn){ btn.textContent = lang==='zh-CN' ? 'EN' : '中'; btn.title='Language / 语言'; }
+          const frame=document.getElementById('appFrame');
+          if(frame){ frame.title=dict.frameTitle; }
+          document.title = (lang==='zh-CN') ? '黑色壁纸生成器 | 纯色壁纸生成器' : 'Black Wallpaper Generator | Solid Color Wallpaper';
+          document.documentElement.setAttribute('lang', lang==='zh-CN' ? 'zh-CN' : 'en');
+          // share intents
+          const pageURL = window.location.origin + window.location.pathname;
+          const tweetText = dict.shareText;
+          const twitter = document.getElementById('shareTwitter');
+          if (twitter) twitter.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(pageURL)}&hashtags=${encodeURIComponent('wallpaper,design,minimalism')}`;
+          const copyBtn = document.getElementById('copyShare');
+          if (copyBtn) copyBtn.setAttribute('aria-label', dict.shareCopy);
+        }
+        apply();
+        document.getElementById('landingLangToggle').addEventListener('click',()=>{
+          lang = lang==='zh-CN' ? 'en' : 'zh-CN';
+          localStorage.setItem(LS_KEY, lang);
+          apply();
+        });
+        document.getElementById('copyShare').addEventListener('click', async ()=>{
+          const dict=L[lang];
+          const pageURL = window.location.origin + window.location.pathname;
+          const content = `${dict.shareText} ${pageURL}`;
+          try { await navigator.clipboard.writeText(content); alert(lang==='zh-CN'?'已复制推荐文案':'Blurb copied'); }
+          catch { const ta=document.createElement('textarea'); ta.value=content; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); alert(lang==='zh-CN'?'已复制推荐文案':'Blurb copied'); }
+        });
+      })();
+    </script>
+  </body>
+  </html>
