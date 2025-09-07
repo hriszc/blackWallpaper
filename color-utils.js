@@ -1,17 +1,16 @@
 // Utility functions for color parsing and conversion
 
-function clamp(n, min, max) { return Math.min(max, Math.max(min, n)); }
+/** Clamp a number between min and max. */
+const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
 
-function toHex2(n) {
-  const s = clamp(Math.round(n), 0, 255).toString(16).padStart(2, '0');
-  return s.toUpperCase();
-}
+/** Convert a number to a two-digit uppercase hexadecimal string. */
+const toHex2 = (n) => clamp(Math.round(n), 0, 255).toString(16).padStart(2, '0').toUpperCase();
 
-function hexFromRGB({ r, g, b }) {
-  return `#${toHex2(r)}${toHex2(g)}${toHex2(b)}`;
-}
+/** Generate a hex color code from an RGB object. */
+const hexFromRGB = ({ r, g, b }) => `#${toHex2(r)}${toHex2(g)}${toHex2(b)}`;
 
-function rgbToHsl(r, g, b) {
+/** Convert RGB values (0-255) to an HSL object. */
+const rgbToHsl = (r, g, b) => {
   r /= 255; g /= 255; b /= 255;
   const max = Math.max(r, g, b), min = Math.min(r, g, b);
   let h, s, l = (max + min) / 2;
@@ -27,9 +26,10 @@ function rgbToHsl(r, g, b) {
     h /= 6;
   }
   return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
-}
+};
 
-function hslToRgb(h, s, l) {
+/** Convert an HSL color to an RGB object. */
+const hslToRgb = (h, s, l) => {
   h = ((h % 360) + 360) % 360;
   s /= 100; l /= 100;
   if (s === 0) {
@@ -46,10 +46,19 @@ function hslToRgb(h, s, l) {
     return p;
   });
   return { r: Math.round(tc[0] * 255), g: Math.round(tc[1] * 255), b: Math.round(tc[2] * 255) };
-}
+};
 
-function parseHex(str) {
-  const s = str.trim().replace(/^#/,'');
+// Precompiled regular expressions to avoid recreation on every call
+const RGB_FUNC = /^rgba?\(([^)]+)\)$/;
+const RGB_CSV = /^([0-9.,]+)$/;
+const HSL_FUNC = /^hsla?\(([^)]+)\)$/;
+
+// Normalize input: trim, lowercase and remove internal whitespace
+const normalize = (str) => str.trim().toLowerCase().replace(/\s+/g, '');
+
+/** Parse a hex color string into an RGB object. */
+const parseHex = (str) => {
+  const s = str.trim().replace(/^#/, '');
   if (/^[0-9a-fA-F]{3}$/.test(s)) {
     const r = parseInt(s[0] + s[0], 16);
     const g = parseInt(s[1] + s[1], 16);
@@ -57,32 +66,34 @@ function parseHex(str) {
     return { r, g, b };
   }
   if (/^[0-9a-fA-F]{6}$/.test(s)) {
-    const r = parseInt(s.slice(0,2), 16);
-    const g = parseInt(s.slice(2,4), 16);
-    const b = parseInt(s.slice(4,6), 16);
+    const r = parseInt(s.slice(0, 2), 16);
+    const g = parseInt(s.slice(2, 4), 16);
+    const b = parseInt(s.slice(4, 6), 16);
     return { r, g, b };
   }
   return null;
-}
+};
 
-function parseRgb(str) {
-  const s = str.trim().toLowerCase().replace(/\s+/g, '');
-  const m = s.match(/^rgba?\(([^)]+)\)$/) || s.match(/^([0-9.,]+)$/);
+/** Parse an rgb()/rgba() or comma separated string into an RGB object. */
+const parseRgb = (str) => {
+  const s = normalize(str);
+  const m = s.match(RGB_FUNC) || s.match(RGB_CSV);
   if (!m) return null;
   const parts = m[1].split(',');
   if (parts.length < 3) return null;
-  const nums = parts.slice(0,3).map(v => {
+  const nums = parts.slice(0, 3).map(v => {
     if (v.endsWith('%')) return clamp(parseFloat(v) * 2.55, 0, 255);
     return parseFloat(v);
   });
   if (nums.some(n => Number.isNaN(n))) return null;
   const [r, g, b] = nums.map(n => clamp(Math.round(n), 0, 255));
   return { r, g, b };
-}
+};
 
-function parseHsl(str) {
-  const s = str.trim().toLowerCase().replace(/\s+/g, '');
-  const m = s.match(/^hsla?\(([^)]+)\)$/);
+/** Parse an hsl()/hsla() string into an RGB object. */
+const parseHsl = (str) => {
+  const s = normalize(str);
+  const m = s.match(HSL_FUNC);
   if (!m) return null;
   const parts = m[1].split(',');
   if (parts.length < 3) return null;
@@ -91,21 +102,25 @@ function parseHsl(str) {
   const lPerc = parseFloat(parts[2]);
   if ([h, sPerc, lPerc].some(n => Number.isNaN(n))) return null;
   return hslToRgb(h, sPerc, lPerc);
-}
+};
 
-function parseColor(input) {
+/** Attempt to parse any supported color string format to RGB. */
+const parseColor = (input) => {
   if (!input) return null;
   const s = String(input).trim();
-  return (
-    parseHex(s) ||
-    parseRgb(s) ||
-    parseHsl(s)
-  );
-}
+  return parseHex(s) ?? parseRgb(s) ?? parseHsl(s);
+};
 
-function formatRGB({ r, g, b }) { return `rgb(${r}, ${g}, ${b})`; }
-function formatHSL({ r, g, b }) { const { h, s, l } = rgbToHsl(r, g, b); return `hsl(${h}, ${s}%, ${l}%)`; }
+/** Format an RGB object as an rgb() string. */
+const formatRGB = ({ r, g, b }) => `rgb(${r}, ${g}, ${b})`;
+
+/** Format an RGB object as an hsl() string. */
+const formatHSL = ({ r, g, b }) => {
+  const { h, s, l } = rgbToHsl(r, g, b);
+  return `hsl(${h}, ${s}%, ${l}%)`;
+};
 
 if (typeof module !== 'undefined') {
   module.exports = { clamp, toHex2, hexFromRGB, rgbToHsl, hslToRgb, parseHex, parseRgb, parseHsl, parseColor, formatRGB, formatHSL };
 }
+
