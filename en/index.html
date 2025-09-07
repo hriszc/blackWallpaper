@@ -3,13 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Black Wallpaper Generator · Solid Color</title>
+    <title>BlackWallpaper</title>
     <meta name="description" content="Create black wallpapers and solid color wallpapers fast (4K, 1080p, iPhone, Android). HEX/RGB/HSL, PNG/JPEG export." />
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://wallpaperonline.net/en/" />
     <link rel="alternate" href="https://wallpaperonline.net/landing.html" hreflang="zh-CN" />
     <link rel="alternate" href="https://wallpaperonline.net/en/" hreflang="en" />
     <link rel="alternate" href="https://wallpaperonline.net/landing.html" hreflang="x-default" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta property="og:title" content="Black Wallpaper Generator · Solid Color" />
     <meta property="og:description" content="Create, preview and download black and solid color wallpapers. HEX/RGB/HSL, presets, PNG/JPEG export." />
     <meta property="og:type" content="website" />
@@ -20,6 +21,7 @@
       .container { max-width: 1080px; margin: 0 auto; padding: 28px 20px 48px; }
       header { display:flex; align-items:flex-start; justify-content:space-between; gap: 16px; }
       header h1 { margin: 0 0 8px 0; font-size: 28px; font-weight: 800; }
+      header h1 .accent { color: var(--link); }
       header p { margin: 0; color: var(--muted); }
       .grid { display:grid; grid-template-columns: 1fr; gap:20px; margin-top:22px; }
       .card { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius: 16px; padding: 18px; box-shadow: 0 8px 28px rgba(0,0,0,.08); }
@@ -35,7 +37,7 @@
     <div class="container">
       <header>
         <div>
-          <h1>Black Wallpaper Generator</h1>
+          <h1 class="logo">Black<span class="accent">Wallpaper</span></h1>
           <p>Generate true black (#000000) and solid color wallpapers. Popular sizes: 4K, 1440p, 1080p, iPhone, Android.</p>
         </div>
       </header>

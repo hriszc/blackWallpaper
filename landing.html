@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Black Wallpaper Generator · Solid Color | 黑色/纯色壁纸生成器</title>
+    <title>BlackWallpaper</title>
     <meta name="description" content="Create black wallpapers and solid color wallpapers fast (4K, 1080p, iPhone, Android). HEX/RGB/HSL, PNG/JPEG export. 生成黑色壁纸与纯色壁纸（4K、1080p、iPhone、Android），支持 HEX/RGB/HSL 与 PNG/JPEG 导出。" />
     <meta name="keywords" content="black wallpaper, 4k black wallpaper, iphone black wallpaper, android black wallpaper, desktop black background, minimalist black wallpaper, amoled black, true black wallpaper, solid black wallpaper, black background image, wallpaper generator, solid color wallpaper, color background, 纯黑 壁纸, 黑色 壁纸, 4K 黑色 壁纸, iPhone 黑色 壁纸, Android 黑色 壁纸, 桌面 黑色 壁纸, AMOLED 省电 壁纸, 纯色 壁纸, 壁纸 生成器" />
     <meta name="robots" content="index,follow" />
@@ -11,6 +11,7 @@
     <link rel="alternate" href="https://wallpaperonline.net/" hreflang="zh-CN" />
     <link rel="alternate" href="https://wallpaperonline.net/en/" hreflang="en" />
     <link rel="alternate" href="https://wallpaperonline.net/" hreflang="x-default" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta property="og:title" content="Solid Color Wallpaper Generator | 纯色壁纸生成器" />
     <meta property="og:description" content="Create black wallpapers (4K, iPhone, Android) and solid color backgrounds. HEX/RGB/HSL, presets, PNG/JPEG export." />
     <meta property="og:type" content="website" />
@@ -25,6 +26,7 @@
       .container { max-width: 1080px; margin: 0 auto; padding: 28px 20px 48px; }
       header { display:flex; align-items:flex-start; justify-content:space-between; gap: 16px; }
       header h1 { margin: 0 0 8px 0; font-size: 28px; font-weight: 800; }
+      header h1 .accent { color: var(--link); }
       header p { margin: 0; color: var(--muted); }
       .header-actions { display:flex; align-items:center; gap: 8px; }
       .lang-toggle { height: 36px; min-width: 44px; padding: 0 12px; border-radius: 10px; border:1px solid rgba(0,0,0,.08); background:#fff; cursor:pointer; }
@@ -108,7 +110,7 @@
     <div class="container">
       <header>
         <div>
-          <h1><span data-i18n="title">纯色壁纸生成器</span> <span style="font-weight:600; color:var(--muted); font-size:20px;" data-i18n="titleEn">Solid Color Wallpaper</span></h1>
+          <h1 class="logo">Black<span class="accent">Wallpaper</span></h1>
           <p data-i18n="subtitle">高性能、纯前端、无依赖，支持 HEX/RGB/HSL、常用分辨率预设、PNG/JPEG 导出与一键复制。</p>
         </div>
         <div class="header-actions">
@@ -265,7 +267,7 @@
           if(btn){ btn.textContent = lang==='zh-CN' ? 'EN' : '中'; btn.title='Language / 语言'; }
           const frame=document.getElementById('appFrame');
           if(frame){ frame.title=dict.frameTitle; }
-          document.title = (lang==='zh-CN') ? '黑色壁纸生成器 | 纯色壁纸生成器' : 'Black Wallpaper Generator | Solid Color Wallpaper';
+          document.title = 'BlackWallpaper';
           document.documentElement.setAttribute('lang', lang==='zh-CN' ? 'zh-CN' : 'en');
           // share intents
           const pageURL = window.location.origin + window.location.pathname;
