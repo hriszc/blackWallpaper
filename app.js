@@ -441,6 +441,7 @@ function togglePanelVisibility() {
 }
 
 // ---- Init ----
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
 window.addEventListener('DOMContentLoaded', () => {
   // cache DOM
   els.colorPicker = qs('#colorPicker');
@@ -630,18 +631,39 @@ window.addEventListener('DOMContentLoaded', () => {
   renderRecentColors();
   renderRecentSizes();
 });
+}
 
 // ---- URL Params (shareable links) ----
-(function applyParams(){
-  try {
-    const p = new URLSearchParams(location.search);
-    const c = p.get('color');
-    const w = parseInt(p.get('w')||p.get('width'), 10);
-    const h = parseInt(p.get('h')||p.get('height'), 10);
-    const f = p.get('format');
-    if (c) setColorFromAny(c);
-    if (w>0) { state.width = w; els.widthInput && (els.widthInput.value = w); }
-    if (h>0) { state.height = h; els.heightInput && (els.heightInput.value = h); }
-    if (f === 'png' || f === 'jpeg') state.format = f;
-  } catch {}
-})();
+if (typeof window !== 'undefined' && typeof location !== 'undefined') {
+  (function applyParams(){
+    try {
+      const p = new URLSearchParams(location.search);
+      const c = p.get('color');
+      const w = parseInt(p.get('w')||p.get('width'), 10);
+      const h = parseInt(p.get('h')||p.get('height'), 10);
+      const f = p.get('format');
+      if (c) setColorFromAny(c);
+      if (w>0) { state.width = w; els.widthInput && (els.widthInput.value = w); }
+      if (h>0) { state.height = h; els.heightInput && (els.heightInput.value = h); }
+      if (f === 'png' || f === 'jpeg') state.format = f;
+    } catch {}
+  })();
+}
+
+// Export selected utilities for testing in Node environments
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    clamp,
+    toHex2,
+    hexFromRGB,
+    rgbToHsl,
+    hslToRgb,
+    parseHex,
+    parseRgb,
+    parseHsl,
+    parseColor,
+    formatRGB,
+    formatHSL,
+    I18N,
+  };
+}
